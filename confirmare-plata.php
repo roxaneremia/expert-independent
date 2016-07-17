@@ -13,7 +13,7 @@ $cancel_url = 'http://roxanaeremia.com/plata-refuzata.php';
 $notify_url = 'http://roxanaeremia.com/confirmare-plata.php';
 
 $item_name = 'Test Item';
-$item_amount = 55.00;
+$item_amount = 50.00;
 
 function check_txnid($tnxid){
 	global $link;
@@ -59,6 +59,10 @@ function updatePayments($data){
 				)", $link);
 		return mysql_insert_id($link);
 	}
+}
+
+if (isset($_POST["suma_incarcata"])) {
+    $item_amount = $_POST["suma_incarcata"];
 }
 
 // Check if paypal request or response

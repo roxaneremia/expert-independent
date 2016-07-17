@@ -82,9 +82,36 @@ include "autentificat.php";
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
 <?php include 'antet.php'; ?>
-<form method="post">	 
 
 <em><h2> Posteaza serviciu </h2></em>
+
+<div style="width: 70%; margin-left: 15%;">
+    <div class="row">
+        <div class="col-md-5"> 
+            <p> Mai ai in cont:<?php echo $_SESSION['venit']; ?> LEI</p>
+            <p> Daca nu ai bani suficienti incarca contul! </p>
+        </div>
+        <div class="col-md-7">
+            <form class="paypal" action="confirmare-plata.php" method="post" id="paypal_form" target="_blank">
+                <input type="hidden" name="cmd" value="_xclick" />
+                <input type="hidden" name="no_note" value="1" />
+                <input type="hidden" name="lc" value="UK" />
+                <input type="hidden" name="currency_code" value="GBP" />
+                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+                <input type="hidden" name="first_name" value="Alex" />
+                <input type="hidden" name="last_name" value="Salajan" />
+                <input type="hidden" name="payer_email" value="client@roxanaeremia.com" />
+                <input type="hidden" name="item_number" value="123456" / >
+                <input class="form-control" type="text" name="suma_incarcata" placeholder="50" />
+                <input class="btn btn-large" type="submit" name="submit" value="Incarca"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<form method="post">	 
+
 
   <div class="form-group">
     <label for="titlu">Titlu:</label>
@@ -96,17 +123,11 @@ include "autentificat.php";
     <textarea class="form-control" rows="5" id="descriere" name="descriere"></textarea>
   </div>
 
-  <div class="form-group" style="float:left;">
+  <div class="form-group">
     <label for="pret_initial">Pret initial:</label>
     <input type="text" class="form-control" id="pret_initial" name="pret_initial">
   </div>
 
-  <div style="float:left; margin-left: 25%; margin-top: 2%"> 
-    <p> Mai ai in cont:<?php echo $_SESSION['venit']; ?> LEI</p>
-    <p> Daca nu ai bani suficienti incarca contul! </p>
-  </div>
-    
-  <button class="btn btn-large" style="float:right; margin-right: 2%;">Incarca cont</button>
 
   <div style="clear:both"></div>
 
@@ -143,6 +164,7 @@ include "autentificat.php";
 
 
 </form>
+
 <?php include "subsol.php"; ?>
 </body>
 
