@@ -16,7 +16,7 @@
 		<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
 		<input type="hidden" name="first_name" value="Alex" />
 		<input type="hidden" name="last_name" value="Salajan" />
-		<input type="hidden" name="payer_email" value="alex.salajan@gmail.com" />
+		<input type="hidden" name="payer_email" value="client@roxanaeremia.com" />
 		<input type="hidden" name="item_number" value="123456" / >
 		<input type="submit" name="submit" value="Submit Payment"/>
 	</form>

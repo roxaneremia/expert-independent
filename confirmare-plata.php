@@ -1,5 +1,4 @@
 <?php
-include "de-inclus.php";
 
 // Database variables
 $host = "localhost"; //database location
@@ -8,13 +7,13 @@ $pass = "yMhAesaiYH"; //database password
 $db_name = "expert_independent"; //database name
 
 // PayPal settings
-$paypal_email = 'roxana.eremia94@gmail.com';
+$paypal_email = 'incasari@roxanaeremia.com';
 $return_url = 'http://roxanaeremia.com/plata-acceptata.php';
 $cancel_url = 'http://roxanaeremia.com/plata-refuzata.php';
 $notify_url = 'http://roxanaeremia.com/confirmare-plata.php';
 
 $item_name = 'Test Item';
-$item_amount = 5.00;
+$item_amount = 55.00;
 
 function check_txnid($tnxid){
 	global $link;
@@ -62,33 +61,32 @@ function updatePayments($data){
 	}
 }
 
-
 // Check if paypal request or response
-if (!isset($_POST["txn_id"]) &amp;amp;amp;&amp;amp;amp; !isset($_POST["txn_type"])){
+if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
     $querystring = '';
     
     // Firstly Append paypal account to querystring
-    $querystring .= "?business=".urlencode($paypal_email)."&amp;amp;amp;";
+    $querystring .= "?business=".urlencode($paypal_email)."&";
     
-    // Append amount&amp;amp;amp; currency (£) to quersytring so it cannot be edited in html
+    // Append amount& currency (£) to quersytring so it cannot be edited in html
     
     //The item name and amount can be brought in dynamically by querying the $_POST['item_number'] variable.
-    $querystring .= "item_name=".urlencode($item_name)."&amp;amp;amp;";
-    $querystring .= "amount=".urlencode($item_amount)."&amp;amp;amp;";
+    $querystring .= "item_name=".urlencode($item_name)."&";
+    $querystring .= "amount=".urlencode($item_amount)."&";
     
     //loop for posted values and append to querystring
-    foreach($_POST as $key =&amp;amp;gt; $value){
+    foreach($_POST as $key => $value){
         $value = urlencode(stripslashes($value));
-        $querystring .= "$key=$value&amp;amp;amp;";
+        $querystring .= "$key=$value&";
     }
     
     // Append paypal return addresses
-    $querystring .= "return=".urlencode(stripslashes($return_url))."&amp;amp;amp;";
-    $querystring .= "cancel_return=".urlencode(stripslashes($cancel_url))."&amp;amp;amp;";
+    $querystring .= "return=".urlencode(stripslashes($return_url))."&";
+    $querystring .= "cancel_return=".urlencode(stripslashes($cancel_url))."&";
     $querystring .= "notify_url=".urlencode($notify_url);
     
     // Append querystring with custom field
-    //$querystring .= "&amp;amp;amp;custom=".USERID;
+    //$querystring .= "&custom=".USERID;
     
     // Redirect to paypal IPN
     header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);
@@ -102,10 +100,10 @@ if (!isset($_POST["txn_id"]) &amp;amp;amp;&amp;amp;amp; !isset($_POST["txn_type"
 
     // read the post from PayPal system and add 'cmd'
     $req = 'cmd=_notify-validate';
-    foreach ($_POST as $key =&amp;amp;gt; $value) {
+    foreach ($_POST as $key => $value) {
         $value = urlencode(stripslashes($value));
         $value = preg_replace('/(.*[^%^0^D])(%0A)(.*)/i','${1}%0D%0A${3}',$value);// IPN fix
-        $req .= "&amp;amp;amp;$key=$value";
+        $req .= "&$key=$value";
     }
     
     // assign posted variables to local variables
@@ -138,16 +136,16 @@ if (!isset($_POST["txn_id"]) &amp;amp;amp;&amp;amp;amp; !isset($_POST["txn_type"
                 // Used for debugging
                 // mail('user@domain.com', 'PAYPAL POST - VERIFIED RESPONSE', print_r($post, true));
                         
-                // Validate payment (Check unique txnid &amp;amp;amp; correct price)
+                // Validate payment (Check unique txnid & correct price)
                 $valid_txnid = check_txnid($data['txn_id']);
                 $valid_price = check_price($data['payment_amount'], $data['item_number']);
-                // PAYMENT VALIDATED &amp;amp;amp; VERIFIED!
-                if ($valid_txnid &amp;amp;amp;&amp;amp;amp; $valid_price) {
+                // PAYMENT VALIDATED & VERIFIED!
+                if ($valid_txnid && $valid_price) {
                     
                     $orderid = updatePayments($data);
                     
                     if ($orderid) {
-                        // Payment has been made &amp;amp;amp; successfully inserted into the Database
+                        // Payment has been made & successfully inserted into the Database
                     } else {
                         // Error inserting into DB
                         // E-mail admin or alert user
@@ -160,18 +158,17 @@ if (!isset($_POST["txn_id"]) &amp;amp;amp;&amp;amp;amp; !isset($_POST["txn_type"
             
             } else if (strcmp ($res, "INVALID") == 0) {
             
-                // PAYMENT INVALID &amp;amp;amp; INVESTIGATE MANUALY!
+                // PAYMENT INVALID & INVESTIGATE MANUALY!
                 // E-mail admin or alert user
                 
                 // Used for debugging
                 //@mail("user@domain.com", "PAYPAL DEBUGGING", "Invalid Response
-data =
-&amp;amp;lt;pre&amp;amp;gt;".print_r($post, true)."&amp;amp;lt;/pre&amp;amp;gt;
-
-");
+//data =
+//&amp;amp;lt;pre&amp;amp;gt;".print_r($post, true)."&amp;amp;lt;/pre&amp;amp;gt;
+//
+//");
             }
         }
     fclose ($fp);
     }
 }
-?>
