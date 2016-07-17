@@ -26,29 +26,33 @@ session_start();
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
 <?php include "antet.php"; ?>   
+<div class="container-fluid">
+    <div class="row">
+        <div id="cauta_job" class="col-md-6">
+        <h1>Cauta job</h1>
+        <p>Esti in cautarea unui job?</p>
+        <form method="get" action="cauta.php">
+            <input placeholder="Cauta un job" id="cauta_input" name="q" type="text">
+            <input type="hidden" name="u" value="cauta">
+            <input type="submit"id="cauta_btn" class="btn btn-primary btn-lg" value="Cauta">
+        </form>
+        </div>
 
-<div id="cauta_job" class="container-fluid col-md-6">
-  <h1>Cauta job</h1>
-  <p>Esti in cautarea unui job?</p>
- <form method="get" action="cauta.php">
-    <input placeholder="Cauta un job" id="cauta_input" name="q" type="text">
-    <input type="hidden" name="u" value="cauta">
-    <input type="submit"id="cauta_btn" class="btn btn-primary btn-lg" value="Cauta">
-</form>
-</div>
-
-<div id="posteaza_job" class="container-fluid col-md-6">
-  <h1>Posteaza job</h1>
-  <p>Expert Independent iti vine in ajutor!</p>
-  <form action="posteaza-job.php" method="get">
-    <input type="hidden" name="u" value="posteaza-job">
-    <input type="hidden" name="q" value="">
-    <input type="submit" id="posteaza_btn" class="btn btn-primary btn-lg" value="Posteaza un job">
-  </form>
-</div>
-
-<div id="functioneaza" class="container-fluid">
-  <button type="button" class="btn btn-primary btn-lg" onclick="window.open('despre-noi.php','_self')" id="about_us">Cum functioneaza?</button>
+        <div id="posteaza_job" class="col-md-6">
+        <h1>Posteaza job</h1>
+        <p>Expert Independent iti vine in ajutor!</p>
+        <form action="posteaza-job.php" method="get">
+            <input type="hidden" name="u" value="posteaza-job">
+            <input type="hidden" name="q" value="">
+            <input type="submit" id="posteaza_btn" class="btn btn-primary btn-lg" value="Posteaza un job">
+        </form>
+        </div>
+    </div>
+    <div class="row">
+        <div id="functioneaza" class="col-md-12">
+            <button type="button" class="btn btn-primary btn-lg" onclick="window.open('despre-noi.php','_self')" id="about_us">Cum functioneaza?</button>
+        </div>
+    </div>
 </div>
 
 <?php include"subsol.php"; ?>

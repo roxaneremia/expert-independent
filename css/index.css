@@ -22,9 +22,9 @@
     text-align: center;
   }
 
-  #cauta_job {padding-top:50px;height:300px;color: #fff; background-color: #4A424F !important; text-align:center; float:left;}
-  #posteaza_job {padding-top:50px;height:300px;color: #fff; background-color: #4A424F !important; text-align:center; float:left;}
-  #functioneaza {padding-top:50px;height:300px;color: #fff; background-color: #4A424F !important; text-align:center; clear: both;}
+  #cauta_job {padding-top:50px;height:300px;color: #fff; background-color: #4A424F !important; text-align:center;}
+  #posteaza_job {padding-top:50px;height:300px;color: #fff; background-color: #4A424F !important; text-align:center;}
+  #functioneaza {padding-top:50px;height:300px;color: #fff; background-color: #4A424F !important; text-align:center;}
 
   /* Set black background color, white text and some padding */
   footer {
