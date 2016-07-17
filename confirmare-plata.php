@@ -1,4 +1,5 @@
 <?php
+include "de-inclus.php";
 
 // Database variables
 $host = "localhost"; //database location
@@ -16,12 +17,12 @@ $item_name = 'Test Item';
 $item_amount = 50.00;
 
 function check_txnid($tnxid){
-	global $link;
-	return true;
-	$valid_txnid = true;
+    global $sqli;
+
+    $valid_txnid = true;
 	//get result set
-	$sql = mysql_query("SELECT * FROM `payments` WHERE txnid = '$tnxid'", $link);
-	if ($row = mysql_fetch_array($sql)) {
+	$sql = mysqli_query($sqli,"SELECT * FROM `payments` WHERE txnid = '$tnxid'");
+	if ($row = mysqli_fetch_array($sqli, $sql)) {
 		$valid_txnid = false;
 	}
 	return $valid_txnid;
@@ -47,17 +48,20 @@ function check_price($price, $id){
 }
 
 function updatePayments($data){
-	global $link;
-	
+	global $sqli;
+    
 	if (is_array($data)) {
-		$sql = mysql_query("INSERT INTO `payments` (txnid, payment_amount, payment_status, itemid, createdtime) VALUES (
-				'".$data['txn_id']."' ,
+		$sql = mysqli_query($sqli,"INSERT INTO `tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES (
+                '' ,
+				'0' ,
+				'".$_SESSION['id_membru']."' ,
 				'".$data['payment_amount']."' ,
+				NOW() ,
+                'Incarcare cont' ,
+				'".$data['txn_id']."' ,
 				'".$data['payment_status']."' ,
-				'".$data['item_number']."' ,
-				'".date("Y-m-d H:i:s")."'
-				)", $link);
-		return mysql_insert_id($link);
+				)");
+		return 1;// mysqli_insert_id($sqli);
 	}
 }
 
@@ -92,14 +96,13 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
     // Append querystring with custom field
     //$querystring .= "&custom=".USERID;
     
+    global $sqli;
+    $sql = mysqli_query($sqli, "INSERT INTO `expert_independent`.`tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES (NULL, '42', '23', '24', CURRENT_DATE(), 'Incarcare cont', '434', 'procesata')");
+    
     // Redirect to paypal IPN
     header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);
     exit();
 } else {
-    //Database Connection
-    $link = mysql_connect($host, $user, $pass);
-    mysql_select_db($db_name);
-    
     // Response from Paypal
 
     // read the post from PayPal system and add 'cmd'

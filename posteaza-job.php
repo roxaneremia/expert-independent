@@ -95,14 +95,14 @@ include "autentificat.php";
             <form class="paypal" action="confirmare-plata.php" method="post" id="paypal_form" target="_blank">
                 <input type="hidden" name="cmd" value="_xclick" />
                 <input type="hidden" name="no_note" value="1" />
-                <input type="hidden" name="lc" value="UK" />
-                <input type="hidden" name="currency_code" value="GBP" />
+                <input type="hidden" name="lc" value="RO" />
+                <input type="hidden" name="currency_code" value="EUR" />
                 <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
                 <input type="hidden" name="first_name" value="Alex" />
                 <input type="hidden" name="last_name" value="Salajan" />
                 <input type="hidden" name="payer_email" value="client@roxanaeremia.com" />
                 <input type="hidden" name="item_number" value="123456" / >
-                <input class="form-control" type="text" name="suma_incarcata" placeholder="50" />
+                <input class="form-control" type="text" name="suma_incarcata" value="50" />
                 <input class="btn btn-large" type="submit" name="submit" value="Incarca"/>
             </form>
         </div>
