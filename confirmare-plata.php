@@ -9,9 +9,9 @@ $db_name = "expert_independent"; //database name
 
 // PayPal settings
 $paypal_email = 'roxana.eremia94@gmail.com';
-$return_url = $URL . '/plata-acceptata.php';
-$cancel_url = $URL . '/plata-refuzata.php';
-$notify_url = $URL . '/confirmare-plata.php';
+$return_url = 'http://roxanaeremia.com/plata-acceptata.php';
+$cancel_url = 'http://roxanaeremia.com/plata-refuzata.php';
+$notify_url = 'http://roxanaeremia.com/confirmare-plata.php';
 
 $item_name = 'Test Item';
 $item_amount = 5.00;
