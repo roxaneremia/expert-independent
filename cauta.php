@@ -34,8 +34,8 @@ include "autentificat.php";
 <?php include "antet.php"; ?>
 
 <em><h2>Joburi cautate dupa <b><?php echo $_GET['q'] ?></b> in Expert Independent</h2></em>
-<div class="lista_joburi">
-<table id="tabel_joburi" class="display" cellspacing="0" width="100%">
+<div class="lista_joburi table-responsive">
+<table id="tabel_joburi" class="display table" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th style="text-align:center">Nr. crt.</th>
