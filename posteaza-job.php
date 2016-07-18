@@ -98,8 +98,8 @@ include "autentificat.php";
                 <input type="hidden" name="lc" value="RO" />
                 <input type="hidden" name="currency_code" value="EUR" />
                 <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                <input type="hidden" name="first_name" value="Alex" />
-                <input type="hidden" name="last_name" value="Salajan" />
+                <input type="hidden" name="first_name" value="Roxana" />
+                <input type="hidden" name="last_name" value="Eremia" />
                 <input type="hidden" name="payer_email" value="client@roxanaeremia.com" />
                 <input type="hidden" name="item_number" value="123456" / >
                 <input class="form-control" type="text" name="suma_incarcata" value="50" />
