@@ -40,11 +40,12 @@ if(isset($_POST['trimite'])) {
 <!--JS-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="js/jquery-1.12.3.js"></script>
 <!--JS-->
-
+<?php include_once('meta.php'); ?>
 </head>
 
-<body style="">
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<div class="loginpanel">
 
 	<h1>Inregistrare cont</h1>
@@ -107,6 +108,13 @@ if(isset($_POST['trimite'])) {
 			</div>
 			<img id="captcha" src="http://www.captchacreator.com/captcha/captchac_code_google.php" ></img>
 		</div>-->
+
+		<div class="checkbox">
+		    <label>
+		    <a class="fancybox fancybox.iframe" href="termeni-conditii.php">
+		      <input type="checkbox" style="margin-top: 1px; width: 0%"></a> <em>Sunt de acord cu termenii si conditiile platformei Expert Independent</em>
+		    </label>
+		  </div>
 
 		<div class="buttons" style="clear:both">
 			<input type="submit" value="Inregistrare" name="trimite" />
