@@ -111,13 +111,12 @@ if(isset($_POST['trimite'])) {
 
 		<div class="checkbox">
 		    <label>
-		    <a class="fancybox fancybox.iframe" href="termeni-conditii.php">
-		      <input type="checkbox" style="margin-top: 1px; width: 0%"></a> <em>Sunt de acord cu termenii si conditiile platformei Expert Independent</em>
+		      <input type="checkbox" style="margin-top: 1px; width: 0%" id="termeni" checked="true"><em>Sunt de acord cu <a class="fancybox fancybox.iframe" href="termeni-conditii.php">termenii si conditiile</a> platformei Expert Independent</em>
 		    </label>
 		  </div>
 
 		<div class="buttons" style="clear:both">
-			<input type="submit" value="Inregistrare" name="trimite" />
+			<input type="submit" value="Inregistrare" name="trimite"/>
 		</div>
 
 	</form>

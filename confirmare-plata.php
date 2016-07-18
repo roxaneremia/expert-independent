@@ -96,8 +96,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
     // Append querystring with custom field
     //$querystring .= "&custom=".USERID;
     
-    global $sqli;
-    $sql = mysqli_query($sqli, "INSERT INTO `expert_independent`.`tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES (NULL, '42', '23', '24', CURRENT_DATE(), 'Incarcare cont', '434', 'procesata')");
+    //global $sqli;
+    //$sql = mysqli_query($sqli, "INSERT INTO `expert_independent`.`tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES (NULL, '42', '23', '24', NOW(), 'Incarcare cont', '434', 'procesata')");
     
     // Redirect to paypal IPN
     header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);

@@ -4,6 +4,11 @@ session_start();
 include "de-inclus.php";
 include "autentificat.php";
 
+if(isset($_POST['submit'])) {
+    global $sqli;
+    $sql = mysqli_query($sqli, "INSERT INTO `expert_independent`.`tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES ('', '0', '".$_SESSION['id_membru']."', '".$_POST['suma_incarcata']."', NOW(), '0', 'procesata')");
+    
+}
 
   if(isset($_POST['posteaza'])) {
 
