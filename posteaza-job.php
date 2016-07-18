@@ -3,12 +3,7 @@ session_start();
   //echo '<pre>'; print_r($_GET); echo '</pre>';  die();
 include "de-inclus.php";
 include "autentificat.php";
-
-if(isset($_POST['submit'])) {
-    global $sqli;
-    $sql = mysqli_query($sqli, "INSERT INTO `expert_independent`.`tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES ('', '0', '".$_SESSION['id_membru']."', '".$_POST['suma_incarcata']."', NOW(), '0', 'procesata')");
-    
-}
+include "tranzactie.php";
 
   if(isset($_POST['posteaza'])) {
 
@@ -34,18 +29,30 @@ if(isset($_POST['submit'])) {
           $termen_limita = date('Y-m-d H:i:s', $termen_limita);
 
           //verific sa am bani suficienti in cont
-          if($_POST['pret_initial'] <= $_SESSION['venit']) 
+          $sql_buget = "SELECT * FROM  membru
+          WHERE  id_membru = '".$_SESSION['id_membru']."'";
+          $result_buget = mysqli_query($sqli,$sql_buget);
+          $row_buget = mysqli_fetch_array($result_buget);
+
+          if($_POST['pret_initial'] <= $row_buget['venit']) 
           {
+              //posteaza serrviciu
               $serviciu = new Serviciu();
-              $serviciu->posteazaServiciu($_POST,$_SESSION['id_membru'],$date_new,$termen_limita,$_POST['interval_pret']);
+              $id_serviciu_tranzactie = $serviciu->posteazaServiciu($_POST,$_SESSION['id_membru'],$date_new,$termen_limita,$_POST['interval_pret']);
 
+              //actualizeaza venit membru
               global $sqli;
-              $venit_actualizat = $_SESSION['venit'] - $_POST['pret_initial'];
-              $sql_update = "UPDATE membru SET venit = '".$venit_actualizat."' WHERE id_membru = '".$_SESSION['id_membru']."' ";
-              mysqli_query($sqli,$sql_update) or die(mysqli_error($sqli));
+              //$venit_actualizat = $row_buget['venit'] - $_POST['pret_initial'];
+              //$sql_update = "UPDATE membru SET venit = '".$venit_actualizat."' WHERE id_membru = '".$_SESSION['id_membru']."' ";
+              //mysqli_query($sqli,$sql_update) or die(mysqli_error($sqli));
 
+              //actualizeaza sesiunea
               $_SESSION['venit'] = $venit_actualizat;
 
+              //insereaza tranzactia
+              $valoare_postare_job = $_POST['pret_initial'];
+              tranzactie($_SESSION['id_membru'],$id_serviciu_tranzactie,-$valoare_postare_job,"postare serviciu");
+              tranzactie('14',$id_serviciu_tranzactie,$valoare_postare_job,"postare serviciu");
               header('Location: servicii_postate.php');
 
           }
@@ -93,7 +100,13 @@ if(isset($_POST['submit'])) {
 <div style="width: 70%; margin-left: 15%;">
     <div class="row">
         <div class="col-md-5"> 
-            <p> Mai ai in cont:<?php echo $_SESSION['venit']; ?> LEI</p>
+        <?php
+          $sql_buget = "SELECT * FROM  membru
+          WHERE  id_membru = '".$_SESSION['id_membru']."'";
+          $result_buget = mysqli_query($sqli,$sql_buget);
+          $row_buget = mysqli_fetch_array($result_buget);
+        ?>
+            <p> Mai ai in cont:<?php echo $row_buget['venit']; ?> LEI</p>
             <p> Daca nu ai bani suficienti incarca contul! </p>
         </div>
         <div class="col-md-7">

@@ -61,6 +61,13 @@ session_start();
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
+<?php
+  $query_titlu = "SELECT * FROM postare_serviciu WHERE id_serviciu = '".$_GET['id_job']."'";
+  $result_titlu = mysqli_query($sqli,$query_titlu);
+
+  $row_titlu = mysqli_fetch_array($result_titlu);
+?>
+<em><h2 style="text-align:center;">Participa la serviciul <b><?php echo $row_titlu['titlu']; ?></b></h2></em>
 
   <form method="post" style="width: 70%; margin-left: 15%">
 

@@ -10,7 +10,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Expert Independent</title>
+  <title>Concursuri</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -34,7 +34,7 @@ session_start();
 
 <?php include "antet.php"; ?>
 
-<em><h2>Concururile mele in Expert Independent</h2></em>
+<em><h2>Concursurile mele in Expert Independent</h2></em>
 <div class="lista_joburi table-responsive">
 <table id="tabel_joburi" class="display table" cellspacing="0" width="100%">
         <thead>
@@ -101,12 +101,11 @@ session_start();
                      <td style="text-align:center"><?php 
 
                       if($row['status_serviciu'] == 0)
-                          echo '<a class="fancybox fancybox.iframe" href="ofertare.php?id_job='.$row["id_serviciu"].'&titlu='.$row["titlu"].'">Oferteaza</a>';
+                          echo $row['buget_propus'];
                       if($row['status_serviciu'] == 1)
                           echo '<a class="fancybox fancybox.iframe" href="participa.php?id_job='.$row["id_serviciu"].'">Participa</a>';
                       if($row['status_serviciu'] == 4 || $row['status_serviciu'] == 5) 
                           echo '<a class="fancybox fancybox.iframe" href="descriere-job.php?id_job='.$row["id_serviciu"].'">Finalizat</a>';
-                      if($row['status_serviciu'] == 3) echo '';
                      ?></td>
                      <td style="text-align:center"><?php echo $row["suma_castigata"]; ?></td>
                  </tr> 

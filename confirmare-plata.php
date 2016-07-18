@@ -1,6 +1,7 @@
 <?php
+session_start();
+echo '<pre>'; echo $_SESSION['id_membru']; echo '</pre>';
 include "de-inclus.php";
-
 // Database variables
 $host = "localhost"; //database location
 $user = "root"; //database username
@@ -67,6 +68,7 @@ function updatePayments($data){
 
 if (isset($_POST["suma_incarcata"])) {
     $item_amount = $_POST["suma_incarcata"];
+    $_SESSION['suma_incarcata'] = $_POST["suma_incarcata"];
 }
 
 // Check if paypal request or response
@@ -89,15 +91,12 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
     }
     
     // Append paypal return addresses
-    $querystring .= "return=".urlencode(stripslashes($return_url))."&";
+    $querystring .= "return=".urlencode(stripslashes($return_url))."&.";
     $querystring .= "cancel_return=".urlencode(stripslashes($cancel_url))."&";
     $querystring .= "notify_url=".urlencode($notify_url);
     
     // Append querystring with custom field
     //$querystring .= "&custom=".USERID;
-    
-    //global $sqli;
-    //$sql = mysqli_query($sqli, "INSERT INTO `expert_independent`.`tranzactie` (`id_tranzactie`, `id_job`, `id_membru`, `suma`, `data_tranzactie`, `nume_tranzactie`, `txnid`, `stare_tranzactie`) VALUES (NULL, '42', '23', '24', NOW(), 'Incarcare cont', '434', 'procesata')");
     
     // Redirect to paypal IPN
     header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);

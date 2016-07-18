@@ -33,8 +33,7 @@ class Serviciu {
 						'".$date_serviciu["link_descarcare"]."',
 						'".$date_serviciu["schita"]."',
 						'".$date_new."', '',
-						 NOW(),'".'0'."'
-						)";
+						 NOW(),'0')";
 
 			$query_pret_final = "INSERT INTO postare_serviciu VALUES 
 					('','".$id_membru."',
@@ -46,8 +45,7 @@ class Serviciu {
 						'".$date_serviciu["schita"]."',
 						'".$date_new."', 
 						'".$date_serviciu["pret_initial"]."',
-						 NOW(),'".'0'."'
-						)";
+						 NOW(),'1')";
 			
 			if($zile_licitatie != 0) 
 			{
@@ -80,7 +78,8 @@ class Serviciu {
 						<?php
 					} //final else
 			}//final else
-			
+			$id_serviciu_tranzactie = mysqli_insert_id($sqli);
+			return $id_serviciu_tranzactie;
 		
 
 	} //END function posteazaServiciu()

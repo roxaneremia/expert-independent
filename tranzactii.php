@@ -9,7 +9,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Expert Independent</title>
+  <title>Tranzactii</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,7 +33,7 @@ session_start();
 
 <?php include "antet.php"; ?>
 
-<em><h2>Concururile mele in Expert Independent</h2></em>
+<em><h2>Tranzactiile mele in Expert Independent</h2></em>
 <div class="lista_joburi">
 <table id="tabel_joburi" class="display" cellspacing="0" width="100%">
         <thead>
@@ -61,10 +61,11 @@ session_start();
 <?php
     $c=0;
     global $sqli;
-    $query = "SELECT *, postare_serviciu.titlu as titlu FROM  tranzactie 
-              INNER JOIN postare_serviciu ON tranzactie.id_job=postare_serviciu.id_serviciu
-              WHERE tranzactie.id_membru = '".$_SESSION['id_membru']."'"; 
 
+    $query = "SELECT *, postare_serviciu.titlu as titlu FROM tranzactie 
+            RIGHT JOIN postare_serviciu ON tranzactie.id_job = postare_serviciu.id_serviciu 
+            WHERE tranzactie.id_membru = '".$_SESSION['id_membru']."' ";
+    //die($query);
     $result = mysqli_query($sqli,$query);
           // output data of each row
     while($row = mysqli_fetch_assoc($result)) 

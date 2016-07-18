@@ -115,11 +115,23 @@ include "autentificat.php";
                      ?></td>
                       <td style="text-align:center">
                       <?php 
-                        if($_SESSION['id_membru'] != $row['id_membru'])
+                        if($_SESSION['id_membru'] != $row['id_membru'] && $row['status_serviciu'] == 0)
                         {
                           $concurs = new Concurs();
                           $concurs->ofertareConcurs($_SESSION['id_membru'],$row['id_serviciu'],$row['titlu']);
+
+                          $query_oferteaza = "SELECT 'id_membru' FROM 'inregistrare_concurs' WHERE 'id_serviciu'='".$_GET['id_job']."' ";
+                          $result_oferteaza = mysqli_query($sqli,$query_oferteaza);
+                              
+                          $count_oferteaza = @mysqli_num_rows($result_oferteaza); // if email not found then register
+                          if($count == 1) {
+                            echo '<a class="fancybox fancybox.iframe" href="participa.php?id_job='.$row["id_serviciu"].'">Participa</a>';
+                          }
+                              
                         }
+
+                         if($_SESSION['id_membru'] != $row['id_membru'] && $row['status_serviciu'] == 1)
+                            echo '<a class="fancybox fancybox.iframe" href="participa.php?id_job='.$row["id_serviciu"].'">Participa</a>';
                          ?>
                         
                     </td>
