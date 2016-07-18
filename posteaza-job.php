@@ -95,7 +95,7 @@ include "tranzactie.php";
 
 <?php include 'antet.php'; ?>
 
-<em><h2> Posteaza serviciu </h2></em>
+<em><h2> Posteaza serviciu  ce zici?</h2></em>
 
 <div style="width: 70%; margin-left: 15%;">
     <div class="row">
