@@ -126,7 +126,7 @@ include "autentificat.php";
                 <input type="hidden" name="payer_email" value="client@roxanaeremia.com" />
                 <input type="hidden" name="item_number" value="123456" / >
                 <input class="form-control" type="text" name="suma_incarcata" value="50" />
-                <input class="btn btn-large" type="submit" name="submit" value="Incarca"/>
+                <input class="btn btn-primary" type="submit" name="submit" value="Incarca" style="margin-top:1%"/>
             </form>
         </div>
     </div>

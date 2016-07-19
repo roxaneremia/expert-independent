@@ -45,7 +45,7 @@ if(isset($_POST['trimite'])) {
 <?php include_once('meta.php'); ?>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body data-spy="scroll" data-target=".navbar" data-offset="50" style="margin-top: 10%">
 	<div class="loginpanel">
 
 	<h1>Inregistrare cont</h1>

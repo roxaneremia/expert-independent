@@ -29,17 +29,17 @@ session_start();
 <div class="container-fluid">
     <div class="row">
         <div id="cauta_job" class="col-md-6">
-        <h1>Cauta job</h1>
-        <p>Esti in cautarea unui job?</p>
+        <h1>Cauta serviciu</h1>
+        <p>Esti in cautarea unui serviciu?</p>
         <form method="get" action="cauta.php">
-            <input placeholder="Cauta un job" id="cauta_input" name="q" type="text">
+            <input placeholder="Cauta un serviciu" id="cauta_input" name="q" type="text">
             <input type="hidden" name="u" value="cauta">
             <input type="submit"id="cauta_btn" class="btn btn-primary btn-lg" value="Cauta">
         </form>
         </div>
 
         <div id="posteaza_job" class="col-md-6">
-        <h1>Posteaza job</h1>
+        <h1>Posteaza serviciu</h1>
         <p>Expert Independent iti vine in ajutor!</p>
         <form action="posteaza-job.php" method="get">
             <input type="hidden" name="u" value="posteaza-job">

@@ -11,7 +11,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Expert Independent</title>
+  <title>Servicii postate</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -35,7 +35,7 @@ session_start();
 
 <?php include "antet.php"; ?>
 
-<em><h2>Joburile mele in Expert Independent</h2></em>
+<em><h2>Serviciile postate de mine in Expert Independent</h2></em>
 <div class="lista_joburi table-responsive">
 <table id="tabel_joburi" class="display table" cellspacing="0" width="100%">
         <thead>

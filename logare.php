@@ -52,9 +52,6 @@ include "de-inclus.php";
           <a href="<?php echo URL; ?>/inregistrare.php" class="entypo-user-add register">Inregistrare</a>
         </span>
       </div>
-    <div class="txt">
-        <a href="#" class="parola">Ti-ai uitat parola?</a>
-    </div>
 
   </form>
   </div>

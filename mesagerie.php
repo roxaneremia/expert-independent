@@ -8,7 +8,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Expert Independent</title>
+  <title>Mesagerie</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -141,7 +141,7 @@ session_start();
     <textarea class="form-control" rows="5" id="mesaj" name="mesaj"></textarea>
   </div>
 
-  <button type="submit" name="trimite_mesaj" value="ok" class="btn btn-default btn-submit" style="float:left; margin-top: 5%; margin-left: 5%">Trimite</button>
+  <button type="submit" name="trimite_mesaj" value="ok" class="btn btn-default btn-submit large-btn" style="float:left; margin-top: 5%; margin-left: 5%">Trimite</button>
 
   </form>
 
@@ -172,7 +172,6 @@ session_start();
                 <th style="text-align:left">Subiect</th>
                 <th style="text-align:left">Mesaj</th>
                 <th style="text-align:center">Data trimitere</th>
-                <th style="text-align:center">Vazut</th>
                 <th style="text-align:center;">Sterge</th>
             </tr>
         </thead>
@@ -209,18 +208,6 @@ session_start();
 
                     echo date('d-m-Y, H:i',strtotime($row["data_trimitere"]));
 
-
-                    ?></td>
-                    <td style="text-align:center"><?php 
-
-                    $status;
-
-                    if($row["citit"] == 0)
-                      $status = "Necitit";
-
-                    if($row["citit"] == 1)
-                      $status = "Citit";
-                    echo $status;
 
                     ?></td>
                     <td>
@@ -262,7 +249,6 @@ session_start();
                 <th style="text-align:left">Subiect</th>
                 <th style="text-align:left">Mesaj</th>
                 <th style="text-align:center">Data trimitere</th>
-                <th style="text-align:center">Vazut</th>
                 <th style="text-align:center">Sterge</th>
             </tr>
         </thead>
@@ -301,18 +287,6 @@ session_start();
 
 
                     ?></td>
-                    <td style="text-align:center"><?php 
-
-                      $status;
-
-                    if($row["citit"] == 0)
-                      $status = "Necitit";
-
-                    if($row["citit"] == 1)
-                      $status = "Citit";
-                    echo $status;
-
-                    ?></td>
                     <td>
                       <button type="submit" name="sterge1" class="sterge" style="margin-left: 20%">Sterge</button>
                       <input type="hidden" name="id_membru_destinatar1" value="<?php echo $row['id_destinatar']; ?>"/>
@@ -341,7 +315,6 @@ session_start();
                 <th style="text-align:left">Subiect</th>
                 <th style="text-align:left">Mesaj</th>
                 <th style="text-align:center">Data trimitere</th>
-                <th style="text-align:center">Vazut</th>
                 <th style="text-align:center">Sterge</th>
             </tr>
         </thead>
@@ -378,18 +351,6 @@ session_start();
 
                     echo date('d-m-Y, H:i',strtotime($row["data_trimitere"]));
 
-
-                    ?></td>
-                    <td style="text-align:center"><?php 
-
-                      $status;
-
-                    if($row["citit"] == 0)
-                      $status = "Necitit";
-
-                    if($row["citit"] == 1)
-                      $status = "Citit";
-                    echo $status;
 
                     ?></td>
                     <td>

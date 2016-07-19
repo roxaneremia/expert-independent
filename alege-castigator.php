@@ -58,6 +58,11 @@ ini_set('display_errors', 1);
      tranzactie(ID_PLATFORMA, $_GET['id_job'], -$castig_designer, 'Castigator concurs'.$_GET['titlu'].' ');
 			mysqli_query($sqli,"UPDATE postare_serviciu SET data_modificare=NOW(), status_serviciu='3' WHERE id_serviciu=".$_GET['id_job']." ");
 			//mysqli_query($sqli,"UPDATE membru SET data_actualizare=NOW(), venit=venit-".$castig_designer." WHERE id_membru=".ID_PLATFORMA." ");
+
+           //update inregistrare_concurs
+          mysqli_query($sqli,"UPDATE inregistrare_concurs SET data_modificare=NOW(), suma_castigata= '".$castig_designer."' , numar_stele = '5'
+        WHERE id_membru= '".$_id_membru_castigator."' AND id_serviciu = '".$_GET['id_job']."' ");
+
 	        $query_notifica = "SELECT *, membru.nume as clientn, membru.prenume as clientp, membru.adresa_email as adresa FROM inregistrare_concurs 
                RIGHT JOIN membru ON inregistrare_concurs.id_membru=membru.id_membru WHERE inregistrare_concurs.id_serviciu='".$_GET['id_job']."' ";
            $result_notifica = mysqli_query($sqli,$query_notifica);
@@ -87,6 +92,9 @@ ini_set('display_errors', 1);
              $notifica->notificare($_SESSION['id_membru'],$_SESSION['nume'],$_SESSION['prenume'],$_SESSION['adresa_email'],
                     $row_notifica['id_membru'], $row_notifica['clientn'], $row_notifica['clientp'], $row_notifica['adresa'], 'CASTIGATOR DESEMNAT', 'Vezi cine a castigat concursul '.$_GET['titlu'].'!');
            }
+          //update inregistrare_concurs
+          mysqli_query($sqli,"UPDATE inregistrare_concurs SET data_modificare=NOW(), suma_castigata= '".$castig_designer."' , numar_stele = '5'
+        WHERE id_membru= '".$_id_membru_castigator."' AND id_serviciu = '".$_GET['id_job']."' ");
 		   // castoigator principal
 		   
 		   // -----------------------
@@ -101,7 +109,9 @@ ini_set('display_errors', 1);
 			    tranzactie($castigatori[$z], $_GET['id_job'], $castig_secundar , 'Castigator secundar concurs'.$_GET['titlu'].'  - '.$stele_acordate[$castigatori[$z]].' stele primite!');
 				  //mysqli_query($sqli,"UPDATE membru SET data_actualizare=NOW(), venit=venit-".$castig_secundar." WHERE id_membru=".ID_PLATFORMA." ");
           tranzactie(ID_PLATFORMA, $_GET['id_job'], -$castig_secundar , 'Castigator secundar concurs'.$_GET['titlu'].'  - '.$stele_acordate[$castigatori[$z]].' stele primite!');
-
+          //update inregistrari_concurs
+          mysqli_query($sqli,"UPDATE inregistrare_concurs SET data_modificare=NOW(), suma_castigata= '".$castig_secundar."' , numar_stele = '".$stele_acordate[$castigatori[$z]]."'
+          WHERE id_membru=".$castigatori[$z]." AND id_serviciu = '".$_GET['id_job']."' ");
 			   }
 		   
 			}
