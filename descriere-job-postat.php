@@ -37,7 +37,7 @@ session_start();
   <?php 
 
   if($job['pret_final'] == 0) {
-      echo('<p style="float:left; margin-left: 3%; font-size: 25px"><b><em> -'); echo $job['pret_initial']; echo('LEI </em></b></p>');
+      echo('<p style="float:left; margin-left: 3%; font-size: 25px"><b><em> - '); echo $job['pret_initial']; echo(' LEI </em></b></p>');
       echo('<button style="float:right" type="submit" class="btn btn-primary btn-lg licitatie" name="liciteaza">Licitatie pret</button>');
       echo('<p style="clear:both"></p>');
     }
@@ -104,7 +104,26 @@ session_start();
     <p style="float:left; margin-bottom: 0; font-size: 13px;"><?php echo $job['descriere']?></p> 
 
     <p style="clear:both; margin-bottom: 0"></p>
-
+    
+    <hr>
+    
+    <?php
+	
+	$query_status = "SELECT status_serviciu FROM postare_serviciu WHERE id_serviciu = '".$_GET['id_job']."' ";
+    $result_status = mysqli_query($sqli,$query_status);
+    $row_status = mysqli_fetch_array($result_status);
+    // Pretul final al jobului
+	if($row_status['status_serviciu']=='3') 
+	 {
+		 echo '<h3>Aici puteti alege servicii suplimentare:</h3>';
+		 
+		 echo '<a href="servicii-suplimentare.php?id_job='.$_GET['id_job'].'">Deschide lista serviciilor suplimentare</a>';
+		 
+	 }
+	
+	
+	?>
+    
 
   </div>
 

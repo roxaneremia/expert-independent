@@ -58,7 +58,7 @@ class Membru {
 			}
 	} //END function inregistrare()
 
-	function logare($date_logare,$url = "profil.php", $cuvant = '') {
+	function logare($date_logare,$url = "servicii_postate.php", $cuvant = '') {
 
 		global $sqli;
 		
@@ -73,6 +73,9 @@ class Membru {
 			$_SESSION['prenume'] = $row['prenume'];
 			$_SESSION['tip_membru'] = $row['tip_membru'];
 			$_SESSION['venit'] = $row['venit'];
+			$_SESSION['adresa_email'] = $row['adresa_email'];
+
+			
 
 			if($cuvant != '') $url.="?q=".$cuvant;
 			header("Location: ".$url."");
@@ -103,16 +106,15 @@ class Membru {
 		} //END function afisareProfil()
 
 
-	function editareProfil($date_editare) {
+	function editareProfil($date_editare,$fotografie) {
 
 		global $sqli;
-
 		$sql_update = "UPDATE `membru` SET
 	     `nume` = '".$date_editare['nume']."', 
 	     `prenume` = '".$date_editare['prenume']."', 
 	     `nume_cont` = '".$date_editare['nume_cont']."',
 	     `gen` = '".$date_editare['gen']."',
-	     `fotografie_profil` = '".$date_editare['fotografie_profil']."',
+	     `fotografie_profil` = '".$fotografie."',
 	     `data_actualizare` = NOW() 
 	     WHERE `membru`.`id_membru` = '".$_SESSION['id_membru']."'";
 
@@ -125,7 +127,7 @@ class Membru {
 	     WHERE `membru`.`id_membru` = '".$_SESSION['id_membru']."'";
 
 
-		if($date_editare['fotografie_profil']=='') {
+		if($fotografie=='') {
 
 		    mysqli_query($sqli,$sql_update2) or die(mysqli_error($sqli));
 

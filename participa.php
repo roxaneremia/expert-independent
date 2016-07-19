@@ -5,9 +5,13 @@ session_start();
 
   if(isset($_POST['trimite-solutie'])) {
 
+    move_uploaded_file($_FILES["solutie"]["tmp_name"], "img/" . basename($_FILES["solutie"]["name"]));
+
+
+
     global $sqli;
       
-    $sql_update = "UPDATE inregistrare_concurs SET solutie = '".$_POST['solutie']."', data_modificare = NOW()
+    $sql_update = "UPDATE inregistrare_concurs SET solutie = '".basename($_FILES["solutie"]["name"])."', data_modificare = NOW()
 
     WHERE id_serviciu = '".$_GET['id_job']."' AND id_membru = '".$_SESSION['id_membru']."'";
 
@@ -69,7 +73,7 @@ session_start();
 ?>
 <em><h2 style="text-align:center;">Participa la serviciul <b><?php echo $row_titlu['titlu']; ?></b></h2></em>
 
-  <form method="post" style="width: 70%; margin-left: 15%">
+  <form method="post" style="width: 70%; margin-left: 15%" enctype="multipart/form-data">
 
     <div class="form-group" style="margin-top: 2%; margin-bottom: 2%;" class="solutie">
 

@@ -167,10 +167,10 @@ session_start();
 <table id="tabel_joburi" class="display" cellspacing="0" width="75%" style="margin-left:10%;">
         <thead>
             <tr>
-                <th style="text-align:center">Nr. crt.</th>
-                <th style="text-align:center">Expeditor</th>
-                <th style="text-align:center">Subiect</th>
-                <th style="text-align:center">Mesaj</th>
+                <th style="text-align:left">Nr. crt.</th>
+                <th style="text-align:left">Expeditor</th>
+                <th style="text-align:left">Subiect</th>
+                <th style="text-align:left">Mesaj</th>
                 <th style="text-align:center">Data trimitere</th>
                 <th style="text-align:center">Vazut</th>
                 <th style="text-align:center;">Sterge</th>
@@ -192,7 +192,7 @@ session_start();
 <?php
     $c=0;
     global $sqli;
-    $query = "SELECT * FROM conversatie WHERE id_destinatar = '".$_SESSION['id_membru']."' AND status = '1'"; 
+    $query = "SELECT * FROM conversatie WHERE id_destinatar = '".$_SESSION['id_membru']."' AND status = '1' ORDER BY data_trimitere DESC"; 
 
     $result = mysqli_query($sqli,$query);
           // output data of each row
@@ -201,10 +201,10 @@ session_start();
 
                  <tr>
                     
-                    <td style="text-align:center"><?php echo $c; ?></td>
-                    <td style="text-align:center"><a href="#"><?php echo $row["nume_expeditor"]; echo " ";echo $row["prenume_expeditor"]; ?></a></td>
-                    <td style="text-align:center"><?php echo $row["subiect"]; ?></td>
-                    <td style="text-align:center"><?php echo $row["mesaj"]; ?></td>
+                    <td style="text-align:left"><?php echo $c; ?></td>
+                    <td style="text-align:left"><a href="#"><?php echo $row["nume_expeditor"]; echo " ";echo $row["prenume_expeditor"]; ?></a></td>
+                    <td style="text-align:left"><?php echo $row["subiect"]; ?></td>
+                    <td style="text-align:left"><?php echo $row["mesaj"]; ?></td>
                     <td style="text-align:center"><?php
 
                     echo date('d-m-Y, H:i',strtotime($row["data_trimitere"]));
@@ -257,10 +257,10 @@ session_start();
     <table id="tabel_joburi" class="display" cellspacing="0" width="75%" style="margin-left:10%;">
         <thead>
             <tr>
-                <th style="text-align:center">Nr. crt.</th>
-                <th style="text-align:center">Destinatar</th>
-                <th style="text-align:center">Subiect</th>
-                <th style="text-align:center">Mesaj</th>
+                <th style="text-align:left">Nr. crt.</th>
+                <th style="text-align:left">Destinatar</th>
+                <th style="text-align:left">Subiect</th>
+                <th style="text-align:left">Mesaj</th>
                 <th style="text-align:center">Data trimitere</th>
                 <th style="text-align:center">Vazut</th>
                 <th style="text-align:center">Sterge</th>
@@ -282,7 +282,7 @@ session_start();
 <?php
     $c=0;
     global $sqli;
-    $query = "SELECT * FROM conversatie WHERE id_expeditor = '".$_SESSION['id_membru']."' AND status = '1' "; 
+    $query = "SELECT * FROM conversatie WHERE id_expeditor = '".$_SESSION['id_membru']."' AND status = '1'  ORDER BY data_trimitere DESC"; 
 
     $result = mysqli_query($sqli,$query);
           // output data of each row
@@ -291,10 +291,10 @@ session_start();
 
                  <tr>
                     
-                    <td style="text-align:center"><?php echo $c; ?></td>
-                    <td style="text-align:center"><a href="#"><?php echo $row["nume_destinatar"]; echo " ";echo $row["prenume_destinatar"]; ?></a></td>
-                    <td style="text-align:center"><?php echo $row["subiect"]; ?></td>
-                    <td style="text-align:center"><?php echo $row["mesaj"]; ?></td>
+                    <td style="text-align:left"><?php echo $c; ?></td>
+                    <td style="text-align:left"><a href="#"><?php echo $row["nume_destinatar"]; echo " ";echo $row["prenume_destinatar"]; ?></a></td>
+                    <td style="text-align:left"><?php echo $row["subiect"]; ?></td>
+                    <td style="text-align:left"><?php echo $row["mesaj"]; ?></td>
                     <td style="text-align:center"><?php
 
                     echo date('d-m-Y, H:i',strtotime($row["data_trimitere"]));
@@ -336,10 +336,10 @@ session_start();
     <table id="tabel_joburi" class="display" cellspacing="0" width="75%" style="margin-left:10%;">
         <thead>
             <tr>
-                <th style="text-align:center">Nr. crt.</th>
-                <th style="text-align:center">Destinatar</th>
-                <th style="text-align:center">Subiect</th>
-                <th style="text-align:center">Mesaj</th>
+                <th style="text-align:left">Nr. crt.</th>
+                <th style="text-align:left">Destinatar</th>
+                <th style="text-align:left">Subiect</th>
+                <th style="text-align:left">Mesaj</th>
                 <th style="text-align:center">Data trimitere</th>
                 <th style="text-align:center">Vazut</th>
                 <th style="text-align:center">Sterge</th>
@@ -361,7 +361,7 @@ session_start();
 <?php
     $c=0;
     global $sqli;
-    $query = "SELECT * FROM conversatie WHERE id_expeditor = '".$_SESSION['id_membru']."' AND status = '0' OR id_destinatar = '".$_SESSION['id_membru']."' AND status = '0' "; 
+    $query = "SELECT * FROM conversatie WHERE id_expeditor = '".$_SESSION['id_membru']."' AND status = '0' OR id_destinatar = '".$_SESSION['id_membru']."' AND status = '0'  ORDER BY data_trimitere DESC"; 
 
     $result = mysqli_query($sqli,$query);
           // output data of each row
@@ -370,10 +370,10 @@ session_start();
 
                  <tr>
                     
-                    <td style="text-align:center"><?php echo $c; ?></td>
-                    <td style="text-align:center"><a href="#"><?php echo $row["nume_destinatar"]; echo " ";echo $row["prenume_destinatar"]; ?></a></td>
-                    <td style="text-align:center"><?php echo $row["subiect"]; ?></td>
-                    <td style="text-align:center"><?php echo $row["mesaj"]; ?></td>
+                    <td style="text-align:left"><?php echo $c; ?></td>
+                    <td style="text-align:left"><a href="#"><?php echo $row["nume_destinatar"]; echo " ";echo $row["prenume_destinatar"]; ?></a></td>
+                    <td style="text-align:left"><?php echo $row["subiect"]; ?></td>
+                    <td style="text-align:left"><?php echo $row["mesaj"]; ?></td>
                     <td style="text-align:center"><?php
 
                     echo date('d-m-Y, H:i',strtotime($row["data_trimitere"]));

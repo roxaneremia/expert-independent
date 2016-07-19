@@ -89,7 +89,7 @@ include "autentificat.php";
                  <tr>
                     
                     <td style="text-align:center"><?php echo $c; ?></td>
-                    <td style="text-align:center"><a class="fancybox fancybox.iframe" href="descriere-job.php?id_job=<?php echo $row["id_serviciu"]; ?>&titlu=<?php echo $row['titlu'];?>"><?php echo $row["titlu"]; ?></a></td>
+                    <td style="text-align:center"><a class="fancybox fancybox.iframe" href="descriere-job-postat.php?id_job=<?php echo $row["id_serviciu"]; ?>&titlu=<?php echo $row['titlu'];?>"><?php echo $row["titlu"]; ?></a></td>
                     <td style="text-align:center"><?php echo $row["pret_initial"]; ?> LEI</td>
                     <td style="text-align:center"><?php echo $row["clientp"]; echo " "; echo $row["clientn"]; ?></td>
                     <td style="text-align:center"><?php
@@ -148,7 +148,7 @@ include "autentificat.php";
                          ?>
                         
                     </td>
-                     <td style="text-align:center"><a class="fancybox fancybox.iframe" href="descriere-job.php?id_job=<?php echo $row["id_serviciu"]; ?>">[detalii job]</a></td>
+                     <td style="text-align:center"><a class="fancybox fancybox.iframe" href="descriere-job-postat.php?id_job=<?php echo $row["id_serviciu"]; ?>">[detalii job]</a></td>
                  </tr> 
     
             <?php

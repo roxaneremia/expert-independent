@@ -1,13 +1,152 @@
 <?php
-
 session_start();
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
   include "de-inclus.php";
-  echo '<pre>'; print_r($_POST); echo '</pre>'; //die();
-
- 
-
+  //echo '<pre>'; print_r($_POST); echo '</pre>'; //die();
+   $notifica = new Concurs(); 
+   global $sqli;
+  
   if(isset($_POST['alege-solutie'])) {
- die();
+
+
+
+   // obtinem pretul proiectului
+    $query_pret_final = "SELECT pret_final FROM postare_serviciu WHERE id_serviciu = '".$_GET['id_job']."' ";
+    $result_pret_final = mysqli_query($sqli,$query_pret_final);
+    $row_pret_final = mysqli_fetch_array($result_pret_final);
+    // Pretul final al jobului
+	$row_pret_final['pret_final'];
+   // terminam obtinere pret proiect
+
+    if(isset($_POST['optcheck'])) $castigatori=$_POST['optcheck']; else $castigatori='';
+  	if(isset($_POST['numar_stele'])) $stele_acordate=$_POST['numar_stele']; else $stele_acordate='';
+  	$stele=0;
+	
+	$este_castigator=0; 
+	
+	if(isset($_POST['optcheck']) && isset($_POST['numar_stele']))
+	{
+	for($k=0;$k<count($castigatori);$k++)
+	 {
+		//echo $castigatori[$k].' - ';
+		if($stele_acordate[$castigatori[$k]]==5) 
+		    {  
+		       $_id_membru_castigator=$castigatori[$k];
+			   if( ($este_castigator) && ($stele_acordate[$castigatori[$k]]==5) )  { $este_castigator++; }
+			   else { $este_castigator=1; }
+			  
+		    }
+		 else { $stele+=$stele_acordate[$castigatori[$k]]; }
+	 }
+	 
+	}
+	 
+	 if($este_castigator==1)  // exista castigatori
+	   {  $total_stele_suplimentare=$stele; 
+	     // impartire suma la stele aditionale
+	     
+		 $castig_plaftorma = round(0.1 * $row_pret_final['pret_final'], 2);
+		 $castig_designeri = $row_pret_final['pret_final'] - $castig_plaftorma;
+		 
+		if(!$total_stele_suplimentare) // castigator unic
+		 {
+			$castig_designer=$castig_designeri;
+	   tranzactie($_id_membru_castigator, $_GET['id_job'], $castig_designer, 'Castigator concurs'.$_GET['titlu'].' ');
+     tranzactie(ID_PLATFORMA, $_GET['id_job'], -$castig_designer, 'Castigator concurs'.$_GET['titlu'].' ');
+			mysqli_query($sqli,"UPDATE postare_serviciu SET data_modificare=NOW(), status_serviciu='3' WHERE id_serviciu=".$_GET['id_job']." ");
+			//mysqli_query($sqli,"UPDATE membru SET data_actualizare=NOW(), venit=venit-".$castig_designer." WHERE id_membru=".ID_PLATFORMA." ");
+	        $query_notifica = "SELECT *, membru.nume as clientn, membru.prenume as clientp, membru.adresa_email as adresa FROM inregistrare_concurs 
+               RIGHT JOIN membru ON inregistrare_concurs.id_membru=membru.id_membru WHERE inregistrare_concurs.id_serviciu='".$_GET['id_job']."' ";
+           $result_notifica = mysqli_query($sqli,$query_notifica);
+           while($row_notifica = mysqli_fetch_array($result_notifica))
+           {
+             $notifica->notificare($_SESSION['id_membru'],$_SESSION['nume'],$_SESSION['prenume'],$_SESSION['adresa_email'],
+                    $row_notifica['id_membru'], $row_notifica['clientn'], $row_notifica['clientp'], $row_notifica['adresa'], 'CASTIGATOR DESEMNAT', 'Vezi cine a castigat concursul '.$_GET['titlu'].'!');
+           }
+		  echo '<h2>Ai ales castigator la concurs</h2>';
+		 } // castigator unic
+		 
+		else // mai multi castigatori
+		{
+			$castig_designer=round(0.7 * $row_pret_final['pret_final'], 2);
+			$pret_stea= round(0.2 * $row_pret_final['pret_final'] / $total_stele_suplimentare, 2);
+			
+			// castigator principal
+			tranzactie($_id_membru_castigator, $_GET['id_job'], $castig_designer, 'Castigator concurs'.$_GET['titlu'].' ');
+      tranzactie(ID_PLATFORMA, $_GET['id_job'], -$castig_designer, 'Castigator concurs'.$_GET['titlu'].' ');
+
+			//mysqli_query($sqli,"UPDATE membru SET data_actualizare=NOW(), venit=venit-".$castig_designer." WHERE id_membru=".ID_PLATFORMA." ");
+	        $query_notifica = "SELECT *, membru.nume as clientn, membru.prenume as clientp, membru.adresa_email as adresa FROM inregistrare_concurs 
+               RIGHT JOIN membru ON inregistrare_concurs.id_membru=membru.id_membru WHERE inregistrare_concurs.id_serviciu='".$_GET['id_job']."' ";
+           $result_notifica = mysqli_query($sqli,$query_notifica);
+           while($row_notifica = mysqli_fetch_array($result_notifica))
+           {
+             $notifica->notificare($_SESSION['id_membru'],$_SESSION['nume'],$_SESSION['prenume'],$_SESSION['adresa_email'],
+                    $row_notifica['id_membru'], $row_notifica['clientn'], $row_notifica['clientp'], $row_notifica['adresa'], 'CASTIGATOR DESEMNAT', 'Vezi cine a castigat concursul '.$_GET['titlu'].'!');
+           }
+		   // castoigator principal
+		   
+		   // -----------------------
+		   
+		   // castigatori secundari
+		   
+		   for($z=0;$z<count($castigatori);$z++)
+	        {
+		      if( ($stele_acordate[$castigatori[$z]]!=5) && (($stele_acordate[$castigatori[$z]]!=0)) )
+			   {
+				  $castig_secundar=round($stele_acordate[$castigatori[$z]] * $pret_stea, 2);
+			    tranzactie($castigatori[$z], $_GET['id_job'], $castig_secundar , 'Castigator secundar concurs'.$_GET['titlu'].'  - '.$stele_acordate[$castigatori[$z]].' stele primite!');
+				  //mysqli_query($sqli,"UPDATE membru SET data_actualizare=NOW(), venit=venit-".$castig_secundar." WHERE id_membru=".ID_PLATFORMA." ");
+          tranzactie(ID_PLATFORMA, $_GET['id_job'], -$castig_secundar , 'Castigator secundar concurs'.$_GET['titlu'].'  - '.$stele_acordate[$castigatori[$z]].' stele primite!');
+
+			   }
+		   
+			}
+		   // castigatori secundari
+		   
+		   mysqli_query($sqli,"UPDATE postare_serviciu SET data_modificare=NOW(), status_serviciu='3' WHERE id_serviciu=".$_GET['id_job']." ");
+
+			echo '<h2>Ai ales castigatori la concurs</h2>';
+		}// mai multi castigatori
+		 
+	   
+	   } // exista castigatori
+	   
+	   elseif($este_castigator>1) { echo 'Au fost desemnati mai multi castigatori (concurenti care au primit 5 stele). Alegeti din nou!'; }
+	     
+		 // cazul in care alege sa nu fie niciun castoigator din doua motive: a) nu sunt inscrisi; b) nu e multumit de rezultate
+		 elseif(isset($_POST['concurs_incheiat_fara_castiogatori'])) 
+		   { 
+		     echo 'Nu a fost desemnat niciun castigator. Ati primit in cont 90% din valoarea proiectului. Va multumim!';  
+			 $retur_plaftorma = round(0.1 * $row_pret_final['pret_final'], 2);
+			 $retur_client = $row_pret_final['pret_final'] - $retur_plaftorma;
+			 //mysqli_query($sqli,"UPDATE membru SET data_actualizare=NOW(), venit=venit-".$retur_client." WHERE id_membru=".ID_PLATFORMA." ");
+			 tranzactie($_SESSION['id_membru'], $_GET['id_job'], $retur_client, 'Returnare plata postare proiect');
+			 tranzactie(ID_PLATFORMA, $_GET['id_job'], -$retur_client, 'Returnare plata postare proiect');
+
+       mysqli_query($sqli,"UPDATE postare_serviciu SET data_modificare=NOW(), status_serviciu='3' WHERE id_serviciu=".$_GET['id_job']." ");
+			 
+			 $query_notifica = "SELECT *, membru.nume as clientn, membru.prenume as clientp, membru.adresa_email as adresa FROM inregistrare_concurs 
+              RIGHT JOIN membru ON inregistrare_concurs.id_membru=membru.id_membru WHERE inregistrare_concurs.id_serviciu='".$_GET['id_job']."' ";
+
+             $result_notifica = mysqli_query($sqli,$query_notifica);
+             while($row_notifica = mysqli_fetch_array($result_notifica))
+             {
+              $notifica->notificare($_SESSION['id_membru'],$_SESSION['nume'],$_SESSION['prenume'],$_SESSION['adresa_email'],
+                    $row_notifica['id_membru'], $row_notifica['clientn'], $row_notifica['clientp'], $row_notifica['adresa'], 'FINALIZARE PROIECT', 'Proiectul '.$_GET['titlu'].' sa finalizat fara desemnarea unui castigator!');
+            }
+			 
+		   }
+	       
+		   
+		   else{ echo 'Nu a fost desemnat niciun castigator (concurent care sa primeasca 5 stele). Alegeti din nou!';  }
+
+
+die();
+
       $query_notifica = "SELECT *, membru.nume as clientn, membru.prenume as clientp, membru.adresa_email as adresa FROM inregistrare_concurs 
       RIGHT JOIN membru ON inregistrare_concurs.id_membru=membru.id_membru WHERE inregistrare_concurs.id_serviciu='".$_GET['id_job']."' ";
 
@@ -175,18 +314,24 @@ session_start();
                 <option value="2">2 stele</option>
                 <option value="1">1 stea</option>
               </select>';
-        //echo '<input type="hidden" value='.$row[''].'>'
+        //echo '<input type="hidden" value='.$row[''].'>' 
+ 
  
         echo '<button class="large-btn ofera-feedback" onclick="window.open(\'opinie.php?membru_id='.$row['id_membru'].'&concurs_id='.$row['id_serviciu'].'&titlu='.$_GET['titlu'].'\',\'_self\')" type="button" name="ofera-feedback" style="float:right; margin-right: 15%">Ofera feedback</button><br/>';
 	  }
+	  	  
   }
 
+  echo ' <br><br>
+		<label style="margin-left:20%; color:#FF0000"><input type="checkbox" name="concurs_incheiat_fara_castiogatori" value="1"> Inchei concursul fara a desemna un castigator (Primesc in contul meu 90% din suma platita). </label>
+				
+		';
        
         $count = @mysqli_num_rows($result);
 
         if($count == 0)
         {
-          echo '<p style="text-align: center;">Ne pare rau, nu exista solutii pentru acest serviciu!</p>';
+          //echo '<p style="text-align: center;">Ne pare rau, nu exista solutii pentru acest serviciu!</p>';
 
         }
         else

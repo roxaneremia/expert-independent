@@ -9,7 +9,6 @@ session_start();
     {
       $inscriere = new Concurs();
 
-
       $inscriere->ofertareLicitatie($_SESSION['id_membru'],$_GET['id_job'],$_POST['buget']);
 
       global $sqli;
@@ -26,18 +25,9 @@ session_start();
                   $_SESSION['id_membru'], $_SESSION['nume'], $_SESSION['prenume'], $_SESSION['adresa_email'], 
                   'OFERTARE', 
                   'Destinatarul cu id '.$_SESSION['id_membru'].'a bugetat cu '.$_POST['buget']'
-                    la serviciul cu numele '.$row['titlu'].'.');
+                   la serviciul cu numele '.$row['titlu'].'.');
 
-
-
-
-       //global $sqli;
-      
-       //$sql_update = "UPDATE postare_serviciu SET status_serviciu = '1', data_modificare = NOW()
-
-       //WHERE id_serviciu = '".$_GET['id_job']."' AND id_membru = '".$_SESSION['id_membru']."'";
-
-       //mysqli_query($sqli,$sql_update) or die(mysqli_error());
+      echo "Ai ofertat cu ".$_POST['buget']." acest concurs!";
     }
 
     else

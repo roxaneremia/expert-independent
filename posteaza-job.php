@@ -3,7 +3,7 @@ session_start();
   //echo '<pre>'; print_r($_GET); echo '</pre>';  die();
 include "de-inclus.php";
 include "autentificat.php";
-include "tranzactie.php";
+//include "tranzactie.php";
 
   if(isset($_POST['posteaza'])) {
 
@@ -50,9 +50,14 @@ include "tranzactie.php";
               $_SESSION['venit'] = $venit_actualizat;
 
               //insereaza tranzactia
-              $valoare_postare_job = $_POST['pret_initial'];
+              $valoare_postare_job = 0.9 * $_POST['pret_initial'];
+              $valoare_postare_job_platforma = 0.1 * $_POST['pret_initial'];
+              //PLATA PENTRU UN JOB
               tranzactie($_SESSION['id_membru'],$id_serviciu_tranzactie,-$valoare_postare_job,"postare serviciu");
-              tranzactie('14',$id_serviciu_tranzactie,$valoare_postare_job,"postare serviciu");
+              tranzactie(ID_PLATFORMA,$id_serviciu_tranzactie,$valoare_postare_job,"postare serviciu");
+              //COMISIONUL DE 10% PENTRU PLATFORMA
+              tranzactie($_SESSION['id_membru'],$id_serviciu_tranzactie,-$valoare_postare_job_platforma,"10% comision platforma pentru postare serviciu");
+              tranzactie(ID_PLATFORMA,$id_serviciu_tranzactie,$valoare_postare_job_platforma,"10% comision platforma pentru postare serviciu");
               header('Location: servicii_postate.php');
 
           }

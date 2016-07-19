@@ -4,7 +4,7 @@ include "de-inclus.php";
 
   if(isset($_POST['buton_logare'])) {
   //echo '<pre>'; print_r($_SESSION); echo '</pre>';  die();
-  if(isset($_SESSION['u'])) $su = $_SESSION['u']; else $su = 'profil';
+  if(isset($_SESSION['u']) && trim($_SESSION['u'])!='') { $su = $_SESSION['u']; }  else { $su = 'profil'; $_SESSION['u']='profil'; }
   if(isset($_SESSION['q'])) $sq = $_SESSION['q']; else $sq = '';
   $membruLogare = new Membru();
   $membruLogare->logare($_POST, $su.".php",$sq);

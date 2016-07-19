@@ -94,14 +94,25 @@ class Concurs {
 
 	    if($row_select['pret_initial'] < $row['pret_final']) {
 	    	$diferenta_pret = $row_select['pret_final'] - $row_select['pret_initial'];
-	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],-$diferenta_pret,'plata diferenta');
-	    	tranzactie('14',$row_select['id_serviciu'],$diferenta_pret,'plata diferenta');
+	    	//plata client
+	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],-(0.9 * $diferenta_pret),'plata diferenta');
+	    	tranzactie(ID_PLATFORMA,$row_select['id_serviciu'],0.9 *$diferenta_pret,'plata diferenta');
+
+	    	//plata platforma
+	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],-(0.1 * $diferenta_pret),'plata diferenta');
+	    	tranzactie(ID_PLATFORMA,$row_select['id_serviciu'],0.1 * $diferenta_pret,'plata diferenta');
 	    }
 	    else
 	    {
 	    	$diferenta_pret = $row_select['pret_initial'] - $row_select['pret_final'];
-	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],$diferenta_pret,'plata diferenta');
-	    	tranzactie('14',$row_select['id_serviciu'],-$diferenta_pret,'plata diferenta');
+	    	//plata client
+	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],0.9 * $diferenta_pret,'plata diferenta');
+	    	tranzactie(ID_PLATFORMA,$row_select['id_serviciu'],-(0.9 * $diferenta_pret),'plata diferenta');
+
+	    	//plata platforma
+
+	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],0.1 * $diferenta_pret,'plata diferenta');
+	    	tranzactie(ID_PLATFORMA,$row_select['id_serviciu'],-(0.1 * $diferenta_pret),'plata diferenta');
 	    }
 
 		?> <script>alert("Ai ales pretul final!")</script>

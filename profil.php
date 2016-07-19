@@ -1,5 +1,6 @@
- 
 <?php
+header("Location: servicii_postate.php");
+
 session_start();
   include "de-inclus.php";
   include "autentificat.php";

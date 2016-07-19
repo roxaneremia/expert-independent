@@ -3,6 +3,7 @@ session_start();
 include "de-inclus.php";
 
 
+
 $membru = new Membru();
 
 
@@ -16,7 +17,10 @@ if(    isset($_POST['parola'])
 
 if(isset($_POST['modifica']) && $_POST['modifica']=='ok') {
 
-  $membru->editareProfil($_POST);
+
+  move_uploaded_file($_FILES["fotografie_profil"]["tmp_name"], "img/" . basename($_FILES["fotografie_profil"]["name"]));
+
+  $membru->editareProfil($_POST,basename($_FILES["fotografie_profil"]["name"]));
 
   if($parola_update != "") {
 
@@ -85,9 +89,9 @@ $utilizator = $membru->afisareProfil($_SESSION['id_membru']);
 <div style="clear:both"></div>
 
 
-<form method="post" style="width: 70%; margin-left: 15%">
+<form method="post" style="width: 70%; margin-left: 15%" enctype="multipart/form-data">
 
-<div class="form-group" style="margin-top: 2%; margin-bottom: 2%;" class="schita">
+<div class="form-group schita" style="margin-top: 2%; margin-bottom: 2%;">
   <label for="foto" class="label_schita" style="margin-right:5%;">Schimba fotografia de profil:</label>
   <input type="file" id="foto" value="Incarca" name="fotografie_profil">
 </div>

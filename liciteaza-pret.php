@@ -31,6 +31,10 @@ session_start();
                   $_POST['subiect'], 'Designerul '.$_SESSION['nume'].' '.$_SESSION['prenume'].'a ofertat cu '.$_POST['buget'].'
                   LEI la serviciul cu numele '.$_GET['titlu'].'.');
 
+      echo "Te-ai inscris cu ".$_POST['buget']." la acest concurs!";
+
+      die();
+
     }
 
     else
@@ -65,7 +69,21 @@ session_start();
 
   <em><h2 style="text-align:center"> <b>Oferteaza concurs - <?php echo $_GET['titlu'] ?> </b></h2></em>
   <div class="inscriere" style="width:70%; margin-left:15%">
+  <?php
 
+  $bugetat = "SELECT * FROM inregistrare_concurs WHERE id_membru = '".$_SESSION['id_membru']."' AND id_serviciu = '".$_GET['id_job']."' ";
+  $result_bugetat = mysqli_query($sqli,$bugetat);
+  //$row_bugetat = mysqli_fetch_array($result_bugetat);
+  $count = @mysqli_num_rows($result_bugetat);
+
+  if($count != 0)
+  {
+    echo "Ai bugetat deja!";
+  }
+  else 
+  {
+
+  ?>
   <form method="post">
     <div class="form-group" style="margin-top: 10%">
 
@@ -84,6 +102,7 @@ session_start();
     </div>
 
     </form>
+    <?php } ?>
 
   </div>
 

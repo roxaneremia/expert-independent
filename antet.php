@@ -35,6 +35,14 @@
           <?php }  ?>
 
           <li><a href="<?php echo URL; ?>/despre-noi.php">Cum functioneaza?</a></li>
+          
+          <?php
+		  if($_SESSION['id_membru']==ID_PLATFORMA)
+		  {
+		  ?>
+          <li><a href="<?php echo URL; ?>/statistici.php" style="color:yellow; font-weight:bold;">Statistici</a></li>
+          <?php } ?>
+          
         </ul>
 
       <?php
@@ -67,7 +75,7 @@
         ?>
        <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="<?php echo URL; ?>/logare.php?u=profil">
+            <a href="<?php echo URL; ?>/logare.php?u=servicii_postate">
               <span class="glyphicon glyphicon-log-in"></span> Logare
             </a>
           </li>
