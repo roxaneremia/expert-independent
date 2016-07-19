@@ -102,10 +102,13 @@ session_start();
 
                       if($row['status_serviciu'] == 0)
                           echo $row['buget_propus'];
-                      if($row['status_serviciu'] == 1)
+                      if($row['status_serviciu'] == 1 && $row['solutie'] == '')
                           echo '<a class="fancybox fancybox.iframe" href="participa.php?id_job='.$row["id_serviciu"].'">Participa</a>';
+                      if($row['status_serviciu'] == 1 && $row['solutie'] != '')
+                          echo 'ai postat solutia pentru acest concurs';
                       if($row['status_serviciu'] == 4 || $row['status_serviciu'] == 5) 
                           echo '<a class="fancybox fancybox.iframe" href="descriere-job.php?id_job='.$row["id_serviciu"].'">Finalizat</a>';
+
                      ?></td>
                      <td style="text-align:center"><?php echo $row["suma_castigata"]; ?></td>
                  </tr> 

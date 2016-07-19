@@ -1,5 +1,6 @@
 <?php
 include "conectare.php";
+include "tranzactie.php";
 
 class Concurs {
 	private $id_inregistrare;
@@ -83,6 +84,25 @@ class Concurs {
 		$sql_update1 = "UPDATE postare_serviciu SET pret_final = '".$pret_final."'
 						WHERE id_serviciu = '".$id_job."' ";
 		mysqli_query($sqli,$sql_update1) or die(mysqli_error());
+
+		//COMPARA PRET INITIAL CU PRET FINAL
+		$sql_select = "SELECT * FROM postare_serviciu WHERE id_serviciu = '".$_GET['id_job']."'";
+
+		$result_select = mysqli_query($sqli,$sql_select);
+
+	    $row_select = mysqli_fetch_array($result_select);
+
+	    if($row_select['pret_initial'] < $row['pret_final']) {
+	    	$diferenta_pret = $row_select['pret_final'] - $row_select['pret_initial'];
+	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],-$diferenta_pret,'plata diferenta');
+	    	tranzactie('14',$row_select['id_serviciu'],$diferenta_pret,'plata diferenta');
+	    }
+	    else
+	    {
+	    	$diferenta_pret = $row_select['pret_initial'] - $row_select['pret_final'];
+	    	tranzactie($_SESSION['id_membru'],$row_select['id_serviciu'],$diferenta_pret,'plata diferenta');
+	    	tranzactie('14',$row_select['id_serviciu'],-$diferenta_pret,'plata diferenta');
+	    }
 
 		?> <script>alert("Ai ales pretul final!")</script>
 		<?php

@@ -107,7 +107,7 @@ session_start();
           ?>  
 
       <div class="radio">
-        <label><input type="radio" name="optradio" value="<?php echo $row['id_membru']; ?>"><?php echo $row['clientp']." ".$row['clientn']; 
+        <label><input type="radio" name="optradio" value="<?php echo $row['buget_propus']; ?>"><?php echo $row['clientp']." ".$row['clientn']; 
         echo " - "; echo $row['buget_propus']; echo " LEI";
          ?></label>
       </div>

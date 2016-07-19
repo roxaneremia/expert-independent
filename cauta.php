@@ -129,9 +129,22 @@ include "autentificat.php";
                           }
                               
                         }
-
                          if($_SESSION['id_membru'] != $row['id_membru'] && $row['status_serviciu'] == 1)
                             echo '<a class="fancybox fancybox.iframe" href="participa.php?id_job='.$row["id_serviciu"].'">Participa</a>';
+
+                          //pentru concursurile la care am postat solutia
+                          $sql_solutie = "SELECT * FROM   inregistrare_concurs
+                          WHERE  id_serviciu = '".$row['id_serviciu']."'";
+
+                          $result_solutie = mysqli_query($sqli,$sql_solutie);
+
+                          $row_solutie = mysqli_fetch_array($result_solutie);
+
+                          if($row_solutie['status_serviciu'] == 1 && $row_solutie['solutie'] == '')
+                          echo '<a class="fancybox fancybox.iframe" href="participa.php?id_job='.$row["id_serviciu"].'">Participa</a>';
+                          if($row_solutie['status_serviciu'] == 1 && $row_solutie['solutie'] != '')
+                          echo 'ai postat solutia pentru acest concurs';
+
                          ?>
                         
                     </td>
